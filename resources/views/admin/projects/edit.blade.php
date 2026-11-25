@@ -115,13 +115,11 @@
     </label>
 
     @if ($project->image)
-        <div style="margin-bottom: 12px;">
-            <img
-                src="{{ $project->image_url }}"
-                alt="{{ $project->title }}"
-                style="max-width: 300px; border-radius: 10px;"
-            >
-        </div>
+        <img
+            src="{{ $project->image_url }}"
+            alt="{{ $project->title }}"
+            class="admin-image-preview"
+        >
     @endif
 
     <input

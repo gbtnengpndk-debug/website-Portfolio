@@ -157,9 +157,7 @@
 
         @if($messages->hasPages())
 
-            <div class="pagination">
-                {{ $messages->links() }}
-            </div>
+            {{ $messages->links('vendor.pagination.admin') }}
 
         @endif
 

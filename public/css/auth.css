@@ -283,4 +283,35 @@ a {
     .auth-card h1 {
         font-size: 21px;
     }
+
+    /* 16px mencegah iOS memperbesar halaman saat input difokuskan */
+    .auth-group input,
+    .auth-button {
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   POLISH
+======================================== */
+
+.auth-wrapper,
+.auth-card {
+    min-width: 0;
+}
+
+.auth-card h1,
+.auth-subtitle,
+.auth-alert,
+.auth-footer,
+.auth-error {
+    overflow-wrap: anywhere;
+}
+
+@supports (min-height: 100svh) {
+
+    body {
+        min-height: 100svh;
+    }
+
 }

@@ -21,6 +21,8 @@
                             <img
                                 src="{{ $project->image_url }}"
                                 alt="{{ $project->title }}"
+                                loading="lazy"
+                                decoding="async"
                             >
                         </div>
                     @endif

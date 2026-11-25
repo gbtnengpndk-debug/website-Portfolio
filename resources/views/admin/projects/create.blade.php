@@ -115,7 +115,6 @@
         id="image"
         name="image"
         accept="image/jpeg,image/png,image/webp"
-        style="width: 100%; padding: 12px; margin-top: 8px;"
     >
 
     <small>

@@ -984,3 +984,195 @@ body {
 .admin-stat-unread strong {
     color: #38bdf8;
 }
+/* ========================================
+   RESPONSIVE & POLISH
+======================================== */
+
+/* Teks panjang tidak boleh merusak layout */
+
+.admin-container,
+.admin-project-card,
+.admin-skill-card,
+.admin-message-card,
+.admin-form-card,
+.admin-empty,
+.admin-stat {
+    min-width: 0;
+}
+
+.admin-project-card h2,
+.admin-project-title h2,
+.admin-project-slug,
+.admin-project-description,
+.admin-skill-info h2,
+.admin-skill-icon,
+.admin-message-header h2,
+.admin-message-email,
+.admin-message-subject,
+.admin-message-content,
+.admin-alert,
+.admin-page-header h1,
+.admin-dashboard-header h1,
+.admin-empty h2 {
+    overflow-wrap: anywhere;
+}
+
+.admin-container,
+.admin-form-card {
+    width: 100%;
+}
+
+/* Input file */
+
+.admin-form-group input[type="file"] {
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.admin-form-group input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 12px;
+
+    border: 1px solid #334155;
+    border-radius: 6px;
+
+    background: #1e293b;
+    color: #f8fafc;
+
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-form-group input[type="file"]::file-selector-button:hover {
+    background: #334155;
+}
+
+/* Preview gambar di form edit */
+
+.admin-image-preview {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 12px;
+
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+/* Rasio gambar project konsisten di semua ukuran */
+
+.admin-project-image img {
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
+
+/* Fokus keyboard */
+
+.admin-button:focus-visible,
+.admin-button-secondary:focus-visible,
+.admin-button-danger:focus-visible,
+.admin-nav a:focus-visible,
+.admin-logout:focus-visible,
+.admin-pagination-link:focus-visible,
+.admin-back-link:focus-visible,
+.admin-back:focus-visible {
+    outline: 2px solid #7dd3fc;
+    outline-offset: 2px;
+}
+
+@media (max-width: 1000px) {
+
+    .admin-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .admin-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-page-header .admin-back-link,
+    .admin-dashboard-header .admin-back {
+        align-self: flex-start;
+    }
+
+    .admin-project-actions {
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .admin-project-actions > *,
+    .admin-project-actions a,
+    .admin-project-actions button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .admin-project-actions .admin-delete-form {
+        width: 100%;
+    }
+
+    .admin-skill-actions form {
+        flex: 1;
+        display: flex;
+    }
+
+    .admin-skill-actions form button {
+        flex: 1;
+    }
+
+    .admin-form-group input,
+    .admin-form-group textarea {
+        font-size: 16px;
+    }
+
+    .admin-project-image {
+        max-width: 100%;
+    }
+
+    .admin-project-links {
+        flex-wrap: wrap;
+    }
+
+    .admin-stat strong {
+        font-size: 32px;
+    }
+
+    .admin-message-count strong {
+        font-size: 28px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .admin-stats,
+    .admin-message-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header {
+        padding: 16px;
+    }
+
+    .admin-container {
+        padding: 24px 14px;
+    }
+
+    .admin-page-header h1,
+    .admin-dashboard-header h1 {
+        font-size: 26px;
+    }
+
+    .admin-project-card,
+    .admin-message-card,
+    .admin-skill-card {
+        padding: 18px;
+    }
+
+}

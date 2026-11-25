@@ -71,6 +71,11 @@
 
     @include('components.footer')
 
+    <script
+        src="{{ asset('js/portfolio.js') }}"
+        defer
+    ></script>
+
 </body>
 
 </html>
