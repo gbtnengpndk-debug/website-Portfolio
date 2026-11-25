@@ -1,47 +1,111 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.auth')
+
+@section('title', 'Login Admin')
+
+@section('content')
+
+<div class="auth-card">
+
+    <h1>Masuk ke Admin</h1>
+
+    <p class="auth-subtitle">
+        Kelola project, skill, dan pesan portfolio kamu.
+    </p>
+
+    @if (session('status'))
+        <div class="auth-alert auth-alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="auth-alert auth-alert-error">
+            <strong>Gagal masuk:</strong>
+
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('login') }}">
+
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="auth-group">
+
+            <label for="email">Email</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ old('email') }}"
+                placeholder="nama@email.com"
+                required
+                autofocus
+                autocomplete="username"
+            >
+
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <div class="auth-group">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <label for="password">Password</label>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Masukkan password"
+                required
+                autocomplete="current-password"
+            >
+
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+        <div class="auth-row">
+
+            <label class="auth-checkbox" for="remember_me">
+
+                <input
+                    type="checkbox"
+                    id="remember_me"
+                    name="remember"
+                >
+
+                Ingat saya
+
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a
+                    class="auth-link"
+                    href="{{ route('password.request') }}"
+                >
+                    Lupa password?
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+
+        <button type="submit" class="auth-button">
+            Masuk
+        </button>
+
     </form>
-</x-guest-layout>
+
+    <p class="auth-footer">
+        Belum punya akun?
+        <a href="{{ route('register') }}">Daftar</a>
+    </p>
+
+</div>
+
+<p class="auth-back">
+    <a href="{{ url('/') }}">← Kembali ke portfolio</a>
+</p>
+
+@endsection
