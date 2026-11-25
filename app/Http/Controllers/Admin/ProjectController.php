@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -44,18 +42,8 @@ class ProjectController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            $filename = Str::uuid() . '.' . $file->extension();
-
-            $path = Storage::disk('s3')->putFileAs(
-                '',
-                $file,
-                $filename,
-                'public'
-            );
-
-            $validated['image'] = $path;
+            // Otomatis: Supabase Storage jika kredensial ada, selain itu lokal
+            $validated['image'] = Project::storeImage($request->file('image'));
         }
 
         $validated['featured'] = $request->boolean('featured');
@@ -109,38 +97,11 @@ class ProjectController extends Controller
         // Simpan gambar lama
         $oldImage = $project->image;
 
-        // Upload gambar baru ke Supabase
-        $file = $request->file('image');
+        // Upload gambar baru (Supabase jika terkonfigurasi, selain itu lokal)
+        $validated['image'] = Project::storeImage($request->file('image'));
 
-        $filename = Str::uuid() . '.' . $file->extension();
-
-        $path = Storage::disk('s3')->putFileAs(
-            '',
-            $file,
-            $filename,
-            'public'
-        );
-
-        $validated['image'] = $path;
-
-        // Hapus gambar lama
-        if ($oldImage) {
-
-            // Jika gambar lama masih di storage lokal
-            if (str_starts_with($oldImage, 'uploads/projects/')) {
-
-                $oldImagePath = public_path($oldImage);
-
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-
-            // Jika gambar lama ada di Supabase
-            else {
-                Storage::disk('s3')->delete($oldImage);
-            }
-        }
+        // Hapus gambar lama setelah gambar baru berhasil disimpan
+        Project::deleteImage($oldImage);
     }
 
     $validated['featured'] = $request->boolean('featured');
@@ -158,24 +119,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
 {
-    // Hapus gambar jika ada
-    if ($project->image) {
-
-        // Gambar lama yang masih berada di public/
-        if (str_starts_with($project->image, 'uploads/projects/')) {
-
-            $imagePath = public_path($project->image);
-
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-        }
-
-        // Gambar yang berada di Supabase Storage
-        else {
-            Storage::disk('s3')->delete($project->image);
-        }
-    }
+    // Hapus gambar jika ada (lokal maupun Supabase)
+    Project::deleteImage($project->image);
 
     // Hapus project dari database
     $project->delete();
