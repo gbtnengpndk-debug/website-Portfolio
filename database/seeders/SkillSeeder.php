@@ -36,7 +36,7 @@ class SkillSeeder extends Seeder
         Skill::create([
             'name' => 'JavaScript',
             'category' => 'Frontend',
-            'icon' => 'javascript',
+            'icon' => 'js',
         ]);
 
         Skill::create([

@@ -17,12 +17,11 @@
         <div class="skills-grid">
 
             @forelse ($skills as $skill)
-
                 <div class="skill-card">
 
-                    @if($skill->icon)
+                    @if ($skill->icon)
                         <div class="skill-icon">
-                            {{ $skill->icon }}
+                            <i class="fa-brands fa-{{ $skill->icon }}"></i>
                         </div>
                     @endif
 
@@ -30,7 +29,7 @@
                         {{ $skill->name }}
                     </h3>
 
-                    @if($skill->category)
+                    @if ($skill->category)
                         <p class="skill-category">
                             {{ $skill->category }}
                         </p>
@@ -43,7 +42,6 @@
                 <p>
                     Belum ada skill.
                 </p>
-
             @endforelse
 
         </div>
