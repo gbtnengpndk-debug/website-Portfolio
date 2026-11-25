@@ -16,12 +16,13 @@ Route::post('/contact', [MessageController::class, 'store'])
     ->name('contact.store');
 
 Route::get('/dashboard', function () {
-    // Admin tidak perlu dashboard bawaan Laravel, langsung ke admin panel
+    // Tidak ada dashboard bawaan Laravel:
+    // admin ke admin panel, user lain kembali ke portfolio.
     if (auth()->user()->is_admin) {
         return redirect()->route('admin.dashboard');
     }
 
-    return view('dashboard');
+    return redirect()->route('portofolio');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->group(function () {
