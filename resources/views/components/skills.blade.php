@@ -14,37 +14,74 @@
 
         </div>
 
-        <div class="skills-grid">
+        @if ($skills->isNotEmpty())
 
-            @forelse ($skills as $skill)
-                <div class="skill-card">
+            <div class="skills-marquee" data-skills-marquee>
+                <div class="skills-track" data-skills-track>
 
-                    @if ($skill->icon)
-                        <div class="skill-icon">
-                            <i class="fa-brands fa-{{ $skill->icon }}"></i>
-                        </div>
-                    @endif
+                    <div class="skills-group">
 
-                    <h3>
-                        {{ $skill->name }}
-                    </h3>
+                        @foreach ($skills as $skill)
+                            <div class="skill-card">
 
-                    @if ($skill->category)
-                        <p class="skill-category">
-                            {{ $skill->category }}
-                        </p>
-                    @endif
+                                @if ($skill->icon)
+                                    <div class="skill-icon">
+                                        <i class="fa-brands fa-{{ $skill->icon }}"></i>
+                                    </div>
+                                @endif
+
+                                <h3>
+                                    {{ $skill->name }}
+                                </h3>
+
+                                @if ($skill->category)
+                                    <p class="skill-category">
+                                        {{ $skill->category }}
+                                    </p>
+                                @endif
+
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                    {{-- Salinan kedua agar perulangan terlihat tanpa putus --}}
+                    <div class="skills-group" aria-hidden="true">
+
+                        @foreach ($skills as $skill)
+                            <div class="skill-card">
+
+                                @if ($skill->icon)
+                                    <div class="skill-icon">
+                                        <i class="fa-brands fa-{{ $skill->icon }}"></i>
+                                    </div>
+                                @endif
+
+                                <h3>
+                                    {{ $skill->name }}
+                                </h3>
+
+                                @if ($skill->category)
+                                    <p class="skill-category">
+                                        {{ $skill->category }}
+                                    </p>
+                                @endif
+
+                            </div>
+                        @endforeach
+
+                    </div>
 
                 </div>
+            </div>
 
-            @empty
+        @else
 
-                <p>
-                    Belum ada skill.
-                </p>
-            @endforelse
+            <p class="skills-empty">
+                Belum ada skill.
+            </p>
 
-        </div>
+        @endif
 
     </div>
 

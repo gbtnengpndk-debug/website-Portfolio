@@ -50,6 +50,13 @@
     </a>
 
     <a
+        href="{{ route('admin.profile.edit') }}"
+        class="{{ request()->routeIs('admin.profile.*') ? 'active' : '' }}"
+    >
+        Profil
+    </a>
+
+    <a
         href="{{ route('admin.messages.index') }}"
         class="{{ request()->routeIs('admin.messages.*') ? 'active' : '' }}"
     >

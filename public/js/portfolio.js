@@ -45,6 +45,47 @@
         });
     }
 
+    /* Skills berjalan otomatis ke kiri */
+
+    var marquee = document.querySelector('[data-skills-marquee]');
+    var track = marquee && marquee.querySelector('[data-skills-track]');
+    var group = track && track.querySelector('.skills-group');
+
+    if (marquee && track && group) {
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var template = group.cloneNode(true);
+        template.setAttribute('aria-hidden', 'true');
+
+        var buildMarquee = function () {
+            if (reduceMotion.matches) {
+                return;
+            }
+
+            // Tambah salinan sampai satu putaran selalu lebih lebar dari layar.
+            while (track.scrollWidth < marquee.clientWidth * 2) {
+                track.appendChild(template.cloneNode(true));
+            }
+
+            var shift = group.offsetWidth;
+
+            if (!shift) {
+                return;
+            }
+
+            track.style.setProperty('--skills-shift', '-' + shift + 'px');
+            track.style.animationDuration = Math.max(12, Math.round(shift / 60)) + 's';
+        };
+
+        buildMarquee();
+
+        var resizeTimer;
+
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(buildMarquee, 200);
+        });
+    }
+
     /* Menu aktif mengikuti posisi scroll */
 
     var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));

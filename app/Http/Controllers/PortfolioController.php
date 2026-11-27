@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Setting;
 use App\Models\Skill;
 
 class PortfolioController extends Controller
@@ -11,7 +12,8 @@ class PortfolioController extends Controller
     {
         $projects = Project::latest()->get();
         $skills = Skill::all();
+        $profilePhoto = Setting::profilePhotoUrl();
 
-        return view('portfolio', compact('projects', 'skills'));
+        return view('portfolio', compact('projects', 'skills', 'profilePhoto'));
     }
 }

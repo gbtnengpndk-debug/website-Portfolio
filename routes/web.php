@@ -7,6 +7,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\SkillController;
 
 Route::get('/', [PortfolioController::class, 'index'])->name('portofolio');
@@ -42,6 +43,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::delete('/admin/messages/{message}', [AdminMessageController::class, 'destroy'])
         ->name('admin.messages.destroy');
+
+    // Profile photo
+    Route::get('/admin/profile', [AdminProfileController::class, 'edit'])
+        ->name('admin.profile.edit');
+
+    Route::put('/admin/profile', [AdminProfileController::class, 'update'])
+        ->name('admin.profile.update');
 
     // Projects
     Route::resource('admin/projects', ProjectController::class)

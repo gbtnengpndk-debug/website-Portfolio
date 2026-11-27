@@ -2,6 +2,26 @@
     <div class="container">
         <div class="hero-content">
 
+            <div class="hero-avatar">
+
+                @if ($profilePhoto)
+
+                    <img
+                        src="{{ $profilePhoto }}"
+                        alt="Foto profil Andhika Wicaksana"
+                        loading="eager"
+                    >
+
+                @else
+
+                    <span class="hero-avatar-placeholder" aria-hidden="true">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                @endif
+
+            </div>
+
             <p class="hero-greeting">
                 👋 Halo, saya
             </p>
